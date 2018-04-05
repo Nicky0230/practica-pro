@@ -1,11 +1,14 @@
+import { Usuario } from './../../models/usuario.model';
 
 import { Injectable } from '@angular/core';
-import { Usuario } from '../../models/usuario.model';
+
 import { HttpClient } from '@angular/common/http';
 import { URL_SERVICIOS } from '../../config/config';
 
 import 'rxjs/add/operator/map';
 import { Router } from '@angular/router';
+import * as _swal from 'sweetalert';
+import { SubirArchivoService } from '../subir-archivo/subir-archivo.service';
 
 @Injectable()
 export class UsuarioService {
@@ -15,7 +18,8 @@ export class UsuarioService {
 
   constructor(
      public http: HttpClient,
-     public router: Router
+     public router: Router,
+     public _subirArchivoService: SubirArchivoService
     ) {
     this.cargarStorage();
   }
@@ -96,6 +100,38 @@ export class UsuarioService {
                       swal('Usuario creado', usuario.email, 'success' );
                       return resp.usuario;
                     });
+
+   }
+
+   actualizarUsuario( usuario: Usuario ) {
+
+     let url = URL_SERVICIOS + '/usuario/' + usuario._id;
+     url += '?token=' + this.token;
+
+
+     return this.http.put( url, usuario )
+                     .map( (resp: any ) => {
+
+                      // this.usuario = resp.usuario;
+                      let usuarioDB: Usuario = resp.usuario;
+                      this.guardarStorage( usuarioDB._id, this.token, usuarioDB );
+                      swal('Usuario actualizado', usuario.nombre, 'success');
+
+                      return true;
+                     });
+
+   }
+
+   cambiarImgaen( archivo: File, id: string ) {
+
+    this._subirArchivoService.subirArchivo( archivo, 'usuarios', id )
+    .then( resp => {
+    console.log( resp );
+    })
+    .catch (resp => {
+      console.log( resp );
+
+    });
 
    }
 

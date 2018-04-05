@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 
 import { RouterModule } from '@angular/router';
 
+// Pipes
+import { PipesModule } from '../pipes/pipes.module';
+
 import { NopagefoundComponent } from '../shared/nopagefound/nopagefound.component';
 import { HeaderComponent } from '../shared/header/header.component';
 import { SidebarComponent } from '../shared/sidebar/sidebar.component';
@@ -12,7 +15,8 @@ import { BreadcrumbsComponent } from '../shared/breadcrumbs/breadcrumbs.componen
 @NgModule ({
   imports: [
      RouterModule,
-     CommonModule
+     CommonModule,
+     PipesModule
   ],
   declarations: [
     NopagefoundComponent,

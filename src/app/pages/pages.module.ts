@@ -9,11 +9,15 @@ import { SharedModule } from './../shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { IncrementadorComponent } from '../components/incrementador/incrementador.component';
 
+// Pipe module
+import { PipesModule } from '../pipes/pipes.module';
+
 // ng2-charts
 import { ChartsModule } from 'ng2-charts';
 import { GraficoDonaComponent } from '../components/grafico-dona/grafico-dona.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
@@ -26,7 +30,8 @@ import { RxjsComponent } from './rxjs/rxjs.component';
      GraficoDonaComponent,
      AccountSettingsComponent,
      PromesaComponent,
-     RxjsComponent
+     RxjsComponent,
+     ProfileComponent
   ],
   exports: [
      DashboardComponent,
@@ -39,7 +44,8 @@ import { RxjsComponent } from './rxjs/rxjs.component';
     SharedModule,
     PAGES_ROUTES,
     FormsModule,
-    ChartsModule
+    ChartsModule,
+    PipesModule
   ]
 })
 export class PagesModule { }

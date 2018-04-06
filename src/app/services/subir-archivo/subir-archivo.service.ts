@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { reject } from 'q';
 import { URL_SERVICIOS } from '../../config/config';
 
 @Injectable()
@@ -14,8 +13,8 @@ export class SubirArchivoService {
 
       let formData = new FormData();
       let xhr = new XMLHttpRequest();
-
-     formData.append( ' imagen', archivo, archivo.name );
+       let img = 200;
+     formData.append( 'imagen', archivo, archivo.name );
 
      xhr.onreadystatechange = function() {
 
@@ -23,9 +22,10 @@ export class SubirArchivoService {
 
           if ( xhr.status === 200 ) {
             console.log('Imagen subida' );
-            resolve( xhr.response );
+            resolve( JSON.parse (xhr.response) );
           } else {
             console.log( 'Fallo la subida');
+            // console.log(archivo);
             reject( xhr.response );
           }
 

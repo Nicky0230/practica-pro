@@ -8,6 +8,7 @@ import { PagesComponent } from './pages.component';
 import { SharedModule } from './../shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { IncrementadorComponent } from '../components/incrementador/incrementador.component';
+import { CommonModule } from '@angular/common';
 
 // Pipe module
 import { PipesModule } from '../pipes/pipes.module';
@@ -41,6 +42,7 @@ import { ProfileComponent } from './profile/profile.component';
 
   ],
   imports: [
+    CommonModule,
     SharedModule,
     PAGES_ROUTES,
     FormsModule,

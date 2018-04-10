@@ -20,6 +20,7 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
+import { ModalUploadComponent } from '../componets/modal-upload/modal-upload.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
      PromesaComponent,
      RxjsComponent,
      ProfileComponent,
-     UsuariosComponent
+     UsuariosComponent,
+     ModalUploadComponent
   ],
   exports: [
      DashboardComponent,

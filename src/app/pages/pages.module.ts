@@ -1,3 +1,4 @@
+
 import { PromesaComponent } from './promesa/promesa.component';
 import { PAGES_ROUTES } from './pages.routes';
 import { NgModule } from '@angular/core';
@@ -21,6 +22,7 @@ import { RxjsComponent } from './rxjs/rxjs.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { ModalUploadComponent } from '../componets/modal-upload/modal-upload.component';
+import { HospitalesComponent } from './hospitales/hospitales.component';
 
 
 @NgModule({
@@ -36,7 +38,8 @@ import { ModalUploadComponent } from '../componets/modal-upload/modal-upload.com
      RxjsComponent,
      ProfileComponent,
      UsuariosComponent,
-     ModalUploadComponent
+     ModalUploadComponent,
+     HospitalesComponent
   ],
   exports: [
      DashboardComponent,

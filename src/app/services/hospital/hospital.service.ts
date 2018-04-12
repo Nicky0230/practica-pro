@@ -1,8 +1,9 @@
+import { Observable } from 'rxjs/Observable';
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { URL_SERVICIOS } from '../../config/config';
-import { SrvRecord } from 'dns';
+// import { SrvRecord } from 'dns';
 import { UsuarioService } from '../usuario/usuario.service';
 import { Hospital } from '../../models/hospital.model';
 
@@ -39,14 +40,14 @@ export class HospitalService {
   borrarHospital( id: string ) {
 
     let url = URL_SERVICIOS + '/hospital/' + id;
-    url += '?token= ' + this._usuarioService.token;
+    url += '?token=' + this._usuarioService.token;
 
     return this.http.delete( url )
                     .map( resp => swal('Hospital Borrado', 'Eliminado correctamente', 'success'));
   }
 
   crearHospital( nombre: string ) {
-
+    console.log( this._usuarioService.usuario._id );
     let url = URL_SERVICIOS + '/hospital';
     url += '?token=' + this._usuarioService.token;
 
@@ -63,11 +64,25 @@ export class HospitalService {
 
   actualizarHospital( hospital: Hospital ) {
 
-    let url = URL_SERVICIOS + '/hospital' + hospital._id;
+    // let url = URL_SERVICIOS + '/hospital/' + hospital._id;
+    // url += '?token=' + this._usuarioService.token;
+
+    // return this.http.put( url, hospital )
+    //                 .map( (resp: any) => resp.hospital );
+
+    let url = URL_SERVICIOS + '/hospital/' + hospital._id;
     url += '?token=' + this._usuarioService.token;
 
     return this.http.put( url, hospital )
-                    .map( (resp: any) => resp.hospital );
+              .map( (resp: any) => {
+
+                swal('Hospital Actualiado', hospital.nombre, 'success');
+                return resp.hospital;
+              }).catch(err => {
+                console.log(err.error.mensaje);
+                return Observable.throw( err );
+
+              });
 
   }
 

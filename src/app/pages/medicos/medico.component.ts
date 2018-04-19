@@ -1,4 +1,5 @@
-import { Router } from '@angular/router';
+import { ModalUploadService } from './../../componets/modal-upload/modal-upload.service';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Hospital } from './../../models/hospital.model';
 import { MedicoService } from './../../services/service.index';
 import { Medico } from './../../models/medico.model';
@@ -21,13 +22,43 @@ export class MedicoComponent implements OnInit {
   constructor(
     public _medicoService: MedicoService,
     public _hospitalService: HospitalService,
-    public router: Router
-  ) { }
+    public router: Router,
+    public activatedRoute: ActivatedRoute,
+    public _modalUploadService:  ModalUploadService
+  ) {
+
+    activatedRoute.params.subscribe( params => {
+
+      let id = params['id'];
+
+      if ( id !== 'nuevo') {
+        this.cargarMedico( id );
+      }
+
+    });
+
+   }
 
   ngOnInit() {
 
     this._hospitalService.cargarHospitales()
                 .subscribe( hospitales => this.hospitales = hospitales );
+
+    this._modalUploadService.notificacion
+        .subscribe( resp => {
+          this.medico.img = resp.medico.img;
+        });
+  }
+
+  cargarMedico( id: string ) {
+    this._medicoService.cargarMedico(id )
+                .subscribe( medico => {
+
+                  this.medico = medico;
+                  this.medico.hospital = medico.hospital._id;
+                  this.cambioHospital( this.medico.hospital );
+
+                });
   }
 
   guardarMedico( f: NgForm) {
@@ -50,10 +81,17 @@ export class MedicoComponent implements OnInit {
 
   }
 
+
   cambioHospital( id: string ) {
 
     this._hospitalService.obtenerHospital( id )
             .subscribe( hospital => this.hospital = hospital);
+
+  }
+
+  cambiarFoto() {
+
+    this._modalUploadService.MostrarModal('medicos', this.medico._id );
 
   }
 
